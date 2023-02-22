@@ -1,41 +1,38 @@
-GRADE = { "AA": 4.0, "A": 3.0, "B": 2.0, "C": 1.0, "D": 0.0 }
+//ほとんどフォーク元のpythonコードをjsにポートしただけ
+//TO DO:あんまjsっぽくないコードなので書き直してもいいかも
+const GRADE = { "AA": 4.0, "A": 3.0, "B": 2.0, "C": 1.0, "D": 0.0 }
 
 function calc() {
-    lines = document.getElementById("textbox").value
-
+    //適当に解析
+    const lines = document.getElementById("textbox").value
     grades = []
     lines.split("\n").forEach(line => {
         splited = line.split(/\s+/)
-        _out = ""
-        splited.forEach(ele => _out += ele + ",")
-        console.log(_out + "\n")
-        let [semester, year, grade, credit] = [splited.pop(), splited.pop(), splited.pop(), splited.pop()]
-        console.log(credit + "," + grade + "," + year + "," + semester + ",")
-        if (credit && grade && year && semester) {
+        const [semester, year, grade, credit] = [splited.pop(), splited.pop(), splited.pop(), splited.pop()]
+        if (credit && grade && year && semester) { //妥当な行のみ成績リストに追加
             grades.push([credit, grade, year, semester])
         }
     });
 
-    raw_gpa = 0.0
-    weighted_gpa = 0.0
-    cred = 0.0
-    semester_gpa = {}
-    semester_cred = {}
+    let raw_gpa = 0.0
+    let weighted_gpa = 0.0
+    let cred = 0.0
+    let semester_gpa = {}
+    let semester_cred = {}
+    let creds = { "AA": 0.0, "A": 0.0, "B": 0.0, "C": 0.0, "D": 0.0 }
 
-    creds = { "AA": 0.0, "A": 0.0, "B": 0.0, "C": 0.0, "D": 0.0 }
-    function h2z(str) {
+    function h2z(str) { //全角カタカナを半角カタカナに変換
         return str.replace(/[Ａ-Ｚａ-ｚ０-９]/g, function (s) {
             return String.fromCharCode(s.charCodeAt(0) - 0xFEE0);
         });
     }
     grades.forEach(element => {
-
         let [credit, grade, year, semester] = element;
 
         console.log(element.length + credit + grade + year + semester + "です\n")
         credit = h2z(credit)
         grade = h2z(grade)
-        if (!isNaN(grade)) {
+        if (!isNaN(grade)) { //数値の成績(そんなのあるのか？)を変換
             int_grade = Number(grade)
             if (90 <= int_grade && int_grade <= 100)
                 grade = "AA"
@@ -72,22 +69,24 @@ function calc() {
         creds[grade] += credit
     });
     if (!cred)
-        alert("取得された単位数が0")
+        alert("入力間違いしてるよ！！")
     
     let cur_sem = Object.keys(semester_cred).pop()
     let gpa = Math.round(weighted_gpa / cred * 100)/100
-    document.getElementById("gpa-num").textContent = `${gpa}\n`
+    let cur_gpa = Math.round(semester_gpa["2022 後期"] / semester_cred["2022 後期"]*100)/100
+    document.getElementById("gpa-num").textContent = `${cur_gpa}\n`
 
-    document.getElementById("tweetBtn").href = `https://twitter.com/intent/tweet?text="今セメのGPAは${gpa}でした！https://kuramot6f.github.io/online-gpa-calculator?gpa=${gpa}"`
+    document.getElementById("tweetBtn").href = `https://twitter.com/intent/tweet?text=今セメのGPAは${cur_gpa}でした！https://kuramot6f.github.io/online-gpa-calculator?gpa=${gpa}`
 
     out = `総取得単位数：${cred}\n`
+    out += `全体のGPA平均:${gpa}\n`
     Object.keys(semester_gpa).forEach(sem => out += `${sem}：${Math.round(semester_gpa[sem] / semester_cred[sem]*100)/100}\n`)
-    Object.keys(creds).forEach(grade => out += `${grade}：${creds[grade]}単位\n`)
+    //Object.keys(creds).forEach(grade => out += `${grade}：${creds[grade]}単位\n`)
     document.getElementById("details").innerHTML = out.replace(/\r?\n/g, '<br>')
     document.getElementById("resultBox").style.display = "block"
 }
 
-var result = true
+let result = true
 function comboDetail() {
     result = !result
     document.getElementById("comboLabel").innerHTML = result ? `<img id="comboArrow" src="./down.svg" />もっと見る` : `<img id="comboArrow" src="./up.svg" />隠す`

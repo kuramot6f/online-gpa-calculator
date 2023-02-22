@@ -23,14 +23,15 @@ body {
     height: 100vh;
     top: 0;
     left: 0;
-    content: "";
     z-index: 0;
-    filter: opacity(0.9);
+    filter: opacity(0.6);
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(2px);
 }
 
 #resultFg {
     z-index: 10;
-    position: fixed;
+    position: absolute;
     background: #111;
     color: #fff;
     inset: 0;
