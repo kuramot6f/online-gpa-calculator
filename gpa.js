@@ -74,22 +74,27 @@ function calc() {
     if (!cred)
         alert("取得された単位数が0")
     
+    let cur_sem = Object.keys(semester_cred).pop()
     let gpa = Math.round(weighted_gpa / cred * 100)/100
     document.getElementById("gpa-num").textContent = `${gpa}\n`
 
     document.getElementById("tweetBtn").href = `https://twitter.com/intent/tweet?text="今セメのGPAは${gpa}でした！https://kuramot6f.github.io/online-gpa-calculator?gpa=${gpa}"`
 
     out = `総取得単位数：${cred}\n`
-    Object.keys(semester_gpa).forEach(sem => out += `${sem}：${semester_gpa[sem] / semester_cred[sem]}\n`)
+    Object.keys(semester_gpa).forEach(sem => out += `${sem}：${Math.round(semester_gpa[sem] / semester_cred[sem]*100)/100}\n`)
     Object.keys(creds).forEach(grade => out += `${grade}：${creds[grade]}単位\n`)
     document.getElementById("details").innerHTML = out.replace(/\r?\n/g, '<br>')
+    document.getElementById("resultBox").style.display = "block"
 }
 
-function openDetail() {
-    document.getElementById("detailBox").style.display = "block"
-}
-function closeDetail() {
-    document.getElementById("detailBox").style.display = "none"
+var result = true
+function comboDetail() {
+    result = !result
+    document.getElementById("comboLabel").innerHTML = result ? `<img id="comboArrow" src="./down.svg" />もっと見る` : `<img id="comboArrow" src="./up.svg" />隠す`
+    document.getElementById("detailBox").style.display = result ? "none" : "block"
+    document.getElementById("resultFg").style.height = result ? "400px" : "600px"
 }
 
-closeDetail()
+function closeResult() {
+    document.getElementById("resultBox").style.display = "none"
+}

@@ -5,22 +5,44 @@
     <meta name="viewport" content="width=device-width" />
     <script src="./gpa.js"></script>
     <link rel="stylesheet" href="gpa.css" />
+    <title>東北大生のGPA計算機</title>
+    <meta property="og:title" content="東北大生のGPA計算機" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://kuramot6f.github.io/online-gpa-calculator" />
+    <meta property="og:image" content="https://kuramot6f.github.io/online-gpa-calculator/ogp.png" />
+    <meta property="og:site_name" content="東北大生のGPA計算機" />
+    <meta property="og:description" content="東北大学生のためのGPA計算機です。さあ、今セメのGPAを見てみよう！！" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1455033394558825"
+     crossorigin="anonymous"></script>
 </head>
 
 <body>
-    <h2>東北大生のための</h2>
-    <h1>GPA計算機(IN DEVELOPMENT)</h1>
-    <textarea type="text" id="textbox" name="textbox">ここに学務情報の成績をコピー＆ペーストしてください</textarea>
-    <button onclick="calc()">計算する</button>
-    <div>
-        <h4>あなたのGPAは</h4>
-        <h3 id="gpa-num">1.00</h3>
-        <p onclick="openDetail()">もっと見る</p>
-        <div id="detailBox">
-            <p onclick="closeDetail()">X</p>
-            <p id="details">GPAと取得単位数の詳細</p>
+    <div id="wrapper">
+        <h2>東北大生のための</h2>
+        <h1>GPA計算機</h1>
+        <textarea type="text" id="textbox" name="textbox">ここに学務情報システムの成績をコピー＆ペーストしてください</textarea>
+        <button id ="calcBtn" onclick="calc()"><i class="fa-solid fa-calculator"></i>計算する</button>
+        <div id="resultBox">
+            <img id="resultBg" src="./resultBg2.png" />
+            <div id="resultFg">
+                <h4>今セメのGPAは...</h4>
+                <h3 id="gpa-num">1.00</h3>
+                <div id="closeResult" onclick="closeResult()"><img src="./closeBtn.svg" /></div>
+                <div id="comboLabel" onclick="comboDetail()"><img id="comboArrow" src="./down.svg" />もっと見る</div>
+                <div id="detailBox">
+                    <p id="details">GPAと取得単位数の詳細</p>
+                </div>
+                <a id="tweetBtn" href="https://twitter.com/intent/tweet?">
+                    <i class="fa-brands fa-twitter"></i>ツイートする
+                </a>
+            </div>
         </div>
-        <a id="tweetBtn" href="https://twitter.com/intent/tweet?">ツイートする</a>
+        <p id="copyright-min"><a href="https://github.com/kuriyan1204/online-gpa-calculator/blob/main/app.py">online-gpa-calculator</a>を改造して作成しました！<br/>楽しんで！！</p>
     </div>
 </body>
 
