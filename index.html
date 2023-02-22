@@ -1,0 +1,27 @@
+<html>
+
+<head lang="ja">
+    <meta charSet="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <script src="./gpa.js"></script>
+    <link rel="stylesheet" href="gpa.css" />
+</head>
+
+<body>
+    <h2>東北大生のための</h2>
+    <h1>GPA計算機(IN DEVELOPMENT)</h1>
+    <textarea type="text" id="textbox" name="textbox">ここに学務情報の成績をコピー＆ペーストしてください</textarea>
+    <button onclick="calc()">計算する</button>
+    <div>
+        <h4>あなたのGPAは</h4>
+        <h3 id="gpa-num">1.00</h3>
+        <p onclick="openDetail()">もっと見る</p>
+        <div id="detailBox">
+            <p onclick="closeDetail()">X</p>
+            <p id="details">GPAと取得単位数の詳細</p>
+        </div>
+        <a id="tweetBtn" href="https://twitter.com/intent/tweet?">ツイートする</a>
+    </div>
+</body>
+
+</html>
