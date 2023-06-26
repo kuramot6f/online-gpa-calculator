@@ -76,7 +76,7 @@ function calc() {
     let cur_gpa = Math.round(semester_gpa["2022 後期"] / semester_cred["2022 後期"]*100)/100
     document.getElementById("gpa-num").textContent = `${cur_gpa}\n`
 
-    document.getElementById("tweetBtn").href = `https://twitter.com/intent/tweet?text=今セメのGPAは${cur_gpa}でした！https://kuramot6f.github.io/online-gpa-calculator?gpa=${gpa}`
+    document.getElementById("tweetBtn").href = `https://twitter.com/intent/tweet?text=今セメのGPAは${cur_gpa}でした！https://kuramot6f.github.io/online-gpa-calculator`
 
     out = `総取得単位数：${cred}\n`
     out += `全体のGPA平均:${gpa}\n`
