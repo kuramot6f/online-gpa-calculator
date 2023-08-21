@@ -73,7 +73,7 @@ function calc() {
     
     let cur_sem = Object.keys(semester_cred).pop()
     let gpa = Math.round(weighted_gpa / cred * 100)/100
-    let cur_gpa = Math.round(semester_gpa["2022 後期"] / semester_cred["2022 後期"]*100)/100
+    let cur_gpa = Math.round(semester_gpa["2023 前期"] / semester_cred["2023 前期"]*100)/100
     document.getElementById("gpa-num").textContent = `${cur_gpa}\n`
 
     document.getElementById("tweetBtn").href = `https://twitter.com/intent/tweet?text=今セメのGPAは${cur_gpa}でした！https://kuramot6f.github.io/online-gpa-calculator`
