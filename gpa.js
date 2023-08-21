@@ -5,11 +5,19 @@ const GRADE = { "AA": 4.0, "A": 3.0, "B": 2.0, "C": 1.0, "D": 0.0 }
 function calc() {
     //適当に解析
     const lines = document.getElementById("textbox").value
-    grades = []
+    let grades = []
     lines.split("\n").forEach(line => {
         splited = line.split(/\s+/)
         const [semester, year, grade, credit] = [splited.pop(), splited.pop(), splited.pop(), splited.pop()]
         if (credit && grade && year && semester) { //妥当な行のみ成績リストに追加
+            //成績が出ていない科目は除外
+            if(grade.match(/^[\u30a0-\u30ff\u3040-\u309f\u3005-\u3006\u30e0-\u9fcf]+$/)) {
+                return;
+            }
+            //最後の成績合計を除外
+            if(!semester.match(/^[\u30a0-\u30ff\u3040-\u309f\u3005-\u3006\u30e0-\u9fcf]+$/)) {
+                return;
+            }
             grades.push([credit, grade, year, semester])
         }
     });
@@ -64,7 +72,8 @@ function calc() {
         raw_gpa += GRADE[grade]
         weighted_gpa += GRADE[grade] * credit
         semester_gpa[sem] += GRADE[grade] * credit
-        cred += credit
+        cred += credit;
+        console.log(cred);
         semester_cred[sem] += credit
         creds[grade] += credit
     });
